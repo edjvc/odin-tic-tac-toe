@@ -196,13 +196,17 @@ const displayController = (function () {
     p1ScoreEl.textContent = gameController.getPlayerOne().getScore();
     p2ScoreEl.textContent = gameController.getPlayerTwo().getScore();
 
-    playerOneEl.style.background = "none";
-    playerTwoEl.style.background = "none";
+    playerOneEl.removeAttribute("style");
+    playerTwoEl.removeAttribute("style");
 
     if (gameController.getActivePlayer().getMarker() === "O") {
       playerOneEl.style.background = "yellow";
+      playerOneEl.style.border = "2px solid red";
+      playerOneEl.style.borderRadius = "12px";
     } else if (gameController.getActivePlayer().getMarker() === "X") {
       playerTwoEl.style.background = "yellow";
+      playerTwoEl.style.border = "2px solid red";
+      playerTwoEl.style.borderRadius = "12px";
     }
     renderBoard();
   };
