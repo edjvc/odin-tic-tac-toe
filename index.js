@@ -304,6 +304,9 @@ const runGame = (function () {
       } else if (gameController.checkRoundResult() === "tie") {
         // console.log("tie game");
         displayController.renderMessage("tie");
+        setTimeout(() => {
+          displayController.resetMessage();
+        }, 1000);
         gameController.addRound();
         gameBoard.resetBoard();
         // log();
