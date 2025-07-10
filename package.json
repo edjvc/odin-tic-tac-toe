@@ -1,0 +1,27 @@
+{
+  "name": "odin-tic-tac-toe",
+  "version": "1.0.0",
+  "description": "### function modules: - players (store player data) - game board (store game board statement) - game controller (store game data, like round, round winner, final winner,etc)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/edjvc/odin-tic-tac-toe.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/edjvc/odin-tic-tac-toe/issues"
+  },
+  "homepage": "https://github.com/edjvc/odin-tic-tac-toe#readme",
+  "devDependencies": {
+    "css-loader": "^7.1.2",
+    "html-loader": "^5.1.0",
+    "html-webpack-plugin": "^5.6.3",
+    "style-loader": "^4.0.0",
+    "webpack": "^5.100.0",
+    "webpack-cli": "^6.0.1"
+  }
+}
