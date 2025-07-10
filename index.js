@@ -140,7 +140,6 @@ const gameController = (function () {
     gameBoard.resetBoard();
     playerOne.resetScore();
     playerTwo.resetScore();
-    displayController.resetMessage();
   };
 
   return {
@@ -211,17 +210,54 @@ const displayController = (function () {
     renderBoard();
   };
 
-  boardEl.addEventListener("click", (e) => {
+  function handleClickSetMarker(e) {
+    const row = parseInt(e.target.dataset.row);
+    const col = parseInt(e.target.dataset.col);
+
+    const cellIsEmpty = (gameBoard.getBoard()[row][col] === "");
+
     if (
-      e.target.className === "cell" &&
-      e.target.textContent === "" &&
-      !gameController.gameOverState()
+      gameController.getPlayerOne() && 
+      gameController.getPlayerTwo() && 
+      e.target.className === "cell" && 
+      !gameController.gameOverState() && 
+      cellIsEmpty
+      // e.target.textContent === ""
     ) {
-      const row = parseInt(e.target.dataset.row);
-      const col = parseInt(e.target.dataset.col);
-      runGame.setMarker(row, col);
+      gameController.setMarker(row, col);
+      renderBoard();
+      if (gameController.checkRoundResult() === "win") {
+        const winner = gameController.getActivePlayer();
+        winner.addScore();
+        if (gameController.checkGameResult()) {
+          renderAllData();
+          renderMessage(winner.getName() + " is the WINNER!!!");
+          gameController.toggleGameOver();
+          return;
+        } else {
+          renderMessage(winner.getName() + " win!!");
+          setTimeout(() => {
+            resetMessage();
+          }, 1000);
+          gameController.addRound();
+          gameBoard.resetBoard();
+          renderAllData();
+        }
+      } else if (gameController.checkRoundResult() === "tie") {
+        renderMessage("tie");
+        setTimeout(() => {
+          resetMessage();
+        }, 1000);
+        gameController.addRound();
+        gameBoard.resetBoard();
+        renderAllData();
+      }
+      gameController.toggleActivePlayer();
+      renderAllData();
     }
-  });
+  }
+
+  boardEl.addEventListener("click", handleClickSetMarker);
 
   const renderMessage = (textcontent) => {
     messageEl.textContent = textcontent;
@@ -234,6 +270,7 @@ const displayController = (function () {
 
   restartBtn.addEventListener("click", () => {
     gameController.resetGame();
+    resetMessage();
     renderAllData();
   });
 
@@ -270,54 +307,11 @@ const runGame = (function () {
   gameController.addPlayerTwo("Eve");
   // console.log("Game Start");
   gameController.resetGame();
+  displayController.resetMessage();
 
   // log();
   displayController.renderPlayers();
   displayController.renderAllData();
-
-  const setMarker = (r, c) => {
-    if (gameController.getPlayerOne() && gameController.getPlayerTwo()) {
-      gameController.setMarker(r, c);
-      // console.table(gameBoard.getBoard());
-      displayController.renderBoard();
-      if (gameController.checkRoundResult() === "win") {
-        const winner = gameController.getActivePlayer();
-        // console.log(winner.getName() + " win!!");
-        displayController.renderMessage(winner.getName() + " win!!");
-        winner.addScore();
-        setTimeout(() => {
-          displayController.resetMessage();
-        }, 1000);
-        if (gameController.checkGameResult()) {
-          // console.log(winner.getName() + " IS THE WINNER!!!");
-          displayController.renderAllData();
-          displayController.renderMessage(
-            winner.getName() + " is the WINNER!!!"
-          );
-          gameController.toggleGameOver();
-          return;
-        }
-        gameController.addRound();
-        gameBoard.resetBoard();
-        // log();
-        displayController.renderAllData();
-      } else if (gameController.checkRoundResult() === "tie") {
-        // console.log("tie game");
-        displayController.renderMessage("tie");
-        setTimeout(() => {
-          displayController.resetMessage();
-        }, 1000);
-        gameController.addRound();
-        gameBoard.resetBoard();
-        // log();
-        displayController.renderAllData();
-      }
-      gameController.toggleActivePlayer();
-      displayController.renderAllData();
-    }
-  };
-
-  return { setMarker };
 })();
 
 // runGame();
