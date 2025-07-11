@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tic Tac Toe</title>
+  <!-- <link rel="stylesheet" href="../src/style.css"> -->
+  <!-- <script type="module" src="./main.js" defer></script> -->
+<script defer src="main.js"></script></head>
+
+<body>
+  <main class="container">
+    <h1 class="title">Tic Tac Toe</h1>
+    <div class="scoreboard">
+      <div class="player" id="player-one">Player 1 (O): </div>
+      <span class="score" id="p1-score">0</span>
+      <div class="round">Round: 1</div>
+      <div class="player" id="player-two">Player 2 (X): </div>
+      <span class="score" id="p2-score">0</span>
+    </div>
+    <div class="board" id="game-board">
+      <div class="cell" data-row="0" data-col="0"></div>
+      <div class="cell" data-row="0" data-col="1"></div>
+      <div class="cell" data-row="0" data-col="2"></div>
+      <div class="cell" data-row="1" data-col="0"></div>
+      <div class="cell" data-row="1" data-col="1"></div>
+      <div class="cell" data-row="1" data-col="2"></div>
+      <div class="cell" data-row="2" data-col="0"></div>
+      <div class="cell" data-row="2" data-col="1"></div>
+      <div class="cell" data-row="2" data-col="2"></div>
+    </div>
+    <div class="message" id="message"></div>
+    <button id="restart-btn">Restart Game</button>
+  </main>
+</body>
+
+</html>
